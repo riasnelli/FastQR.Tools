@@ -202,7 +202,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countdownInterval) clearInterval(countdownInterval);
         qrContainer.style.display = 'none';
         adContainer.style.display = 'flex';
-        adContent.innerHTML = '<div style="width:250px;height:250px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;">Advertisement<br/>(250x250)</div>';
+        
+        // Initialize AdSense ad if not already loaded
+        if (!adContent.querySelector('.adsbygoogle')) {
+            adContent.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7635271375039898" data-ad-slot="4136885580" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+            try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error('AdSense error:', e);
+            }
+        }
+        
         let countdown = 10;
         if (adCountdown) adCountdown.textContent = countdown;
         countdownInterval = setInterval(() => {
