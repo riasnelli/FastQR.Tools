@@ -203,13 +203,26 @@ document.addEventListener('DOMContentLoaded', () => {
         qrContainer.style.display = 'none';
         adContainer.style.display = 'flex';
         
-        // Initialize AdSense ad if not already loaded
-        if (!adContent.querySelector('.adsbygoogle')) {
-            adContent.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7635271375039898" data-ad-slot="4136885580" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+        // (Re)initialize AdSense ad each time we show the ad gate.
+        // This avoids the case where an <ins.adsbygoogle> exists but was never pushed/initialized.
+        if (adContent) {
+            adContent.innerHTML = '';
+
+            const ins = document.createElement('ins');
+            ins.className = 'adsbygoogle';
+            ins.style.display = 'block';
+            ins.setAttribute('data-ad-client', 'ca-pub-7635271375039898');
+            ins.setAttribute('data-ad-slot', '4136885580');
+            ins.setAttribute('data-ad-format', 'auto');
+            ins.setAttribute('data-full-width-responsive', 'true');
+            adContent.appendChild(ins);
+
+            // Queue/render the ad (may no-op if AdSense not approved, adblocked, etc.)
             try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (e) {
-                console.error('AdSense error:', e);
+                // Don't break the download flow if ads fail
+                console.warn('AdSense init failed:', e);
             }
         }
         
