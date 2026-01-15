@@ -87,6 +87,12 @@ body::before {
     color: var(--text-muted);
     letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.form-brand:hover {
+    color: var(--text-main);
 }
 
 .form-brand-logo {
