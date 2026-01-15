@@ -1,7 +1,15 @@
 function setRandomUnsplashBackground() {
     if (window.innerWidth >= 768) {
-        const randomSeed = Date.now() + Math.floor(Math.random() * 1000000);
-        const imageUrl = `https://picsum.photos/1600/900?random=${randomSeed}`;
+        // Curated list of reliable high-quality Unsplash images (Abstract/Dark/Technology vibe)
+        const wallpapers = [
+            'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop', // Dark Tech
+            'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop', // Circuit
+            'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop', // Abstract Blue
+            'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2670&auto=format&fit=crop', // Geometric
+            'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', // Liquid Gradient
+            'https://images.unsplash.com/photo-1620121692029-d088224ddc84?q=80&w=2532&auto=format&fit=crop'  // Dark Shapes
+        ];
+        const imageUrl = wallpapers[Math.floor(Math.random() * wallpapers.length)];
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => document.body.style.backgroundImage = `url('${imageUrl}')`;
@@ -40,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generate-qr');
     const formView = document.getElementById('form-view');
     const qrView = document.getElementById('qr-view');
-    
+
     if (qrContainer) qrContainer.style.display = 'flex';
 
     let qrCodeObj = null;
@@ -66,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateQR(shouldSlide = false) {
+        if (!ssidInput) return;
         const qrContent = generateQRString();
         if (qrContent) {
             qrPlaceholder.classList.add('hidden');
@@ -118,19 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (generateBtn) {
         generateBtn.addEventListener('click', () => updateQR(true));
-        
-        generateBtn.addEventListener('mouseenter', function(e) {
+
+        generateBtn.addEventListener('mouseenter', function (e) {
             const button = this;
             if (button.disabled) return;
-            
+
             // Remove any existing ripples
             const existingRipples = button.querySelectorAll('.btn-ripple');
             existingRipples.forEach(ripple => ripple.remove());
-            
+
             const rect = button.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             // Calculate the maximum distance from mouse point to button corners
             const buttonWidth = rect.width;
             const buttonHeight = rect.height;
@@ -140,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Math.sqrt(Math.pow(x, 2) + Math.pow(buttonHeight - y, 2)),
                 Math.sqrt(Math.pow(buttonWidth - x, 2) + Math.pow(buttonHeight - y, 2))
             );
-            
+
             // Create ripple element at mouse position
             const ripple = document.createElement('span');
             ripple.className = 'btn-ripple';
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ripple.style.zIndex = '0';
             ripple.style.transition = 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1), height 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             ripple.style.position = 'absolute';
-            
+
             button.appendChild(ripple);
             ripple.offsetHeight;
             requestAnimationFrame(() => {
@@ -169,8 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
-        
-        generateBtn.addEventListener('mouseleave', function() {
+
+        generateBtn.addEventListener('mouseleave', function () {
             this.querySelectorAll('.btn-ripple').forEach(ripple => {
                 ripple.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                 ripple.style.opacity = '0';
@@ -202,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countdownInterval) clearInterval(countdownInterval);
         qrContainer.style.display = 'none';
         adContainer.style.display = 'flex';
-        
+
         // (Re)initialize AdSense ad each time we show the ad gate.
         // This avoids the case where an <ins.adsbygoogle> exists but was never pushed/initialized.
         if (adContent) {
@@ -225,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn('AdSense init failed:', e);
             }
         }
-        
+
         let countdown = 10;
         if (adCountdown) adCountdown.textContent = countdown;
         countdownInterval = setInterval(() => {
@@ -267,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectOptions = encryptionSelectComponent.querySelectorAll('.material-select-option');
         const hiddenInput = encryptionSelect;
         const optionTexts = { 'WPA': 'WPA/WPA2', 'WEP': 'WEP', 'nopass': 'Open (no password)' };
-        
+
         function updateSelectValue(value) {
             hiddenInput.value = value;
             selectValue.textContent = optionTexts[value] || value;
@@ -275,10 +284,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 opt.classList.toggle('selected', opt.getAttribute('data-value') === value);
             });
         }
-        
+
         updateSelectValue(hiddenInput.value || 'WPA');
         encryptionSelectComponent.classList.add('has-value');
-        
+
         selectTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             const isOpen = encryptionSelectComponent.classList.contains('open');
@@ -291,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 encryptionSelectComponent.classList.add('open');
             }
         });
-        
+
         selectOptions.forEach(option => {
             option.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -302,13 +311,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
             });
         });
-        
+
         document.addEventListener('click', (e) => {
             if (!encryptionSelectComponent.contains(e.target)) {
                 encryptionSelectComponent.classList.remove('open');
             }
         });
-        
+
         hiddenInput.addEventListener('change', () => updateQR(false));
     }
 
