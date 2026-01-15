@@ -7,7 +7,19 @@ function setRandomUnsplashBackground() {
             'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop', // Abstract Blue
             'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2670&auto=format&fit=crop', // Geometric
             'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop', // Liquid Gradient
-            'https://images.unsplash.com/photo-1620121692029-d088224ddc84?q=80&w=2532&auto=format&fit=crop'  // Dark Shapes
+            'https://images.unsplash.com/photo-1620121692029-d088224ddc84?q=80&w=2532&auto=format&fit=crop', // Dark Shapes
+            'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2670&auto=format&fit=crop', // Matrix Code
+            'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2670&auto=format&fit=crop', // Coding Screen
+            'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2670&auto=format&fit=crop', // Workplace Dark
+            'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop', // Retro Tech
+            'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2670&auto=format&fit=crop', // Global Network
+            'https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?q=80&w=2670&auto=format&fit=crop', // Cyberpunk City
+            'https://images.unsplash.com/photo-1536566482682-f5bf5496797d?q=80&w=2670&auto=format&fit=crop', // Black Abstract
+            'https://images.unsplash.com/photo-1504384308090-c54be3855091?q=80&w=2670&auto=format&fit=crop', // Hologram
+            'https://images.unsplash.com/photo-1514798604712-4fb053d8ae21?q=80&w=2670&auto=format&fit=crop', // Blue Particles
+            'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2670&auto=format&fit=crop', // Dark Gradient
+            'https://images.unsplash.com/photo-1464618663641-bbdd760ae19b?q=80&w=2670&auto=format&fit=crop', // Dark Landscape
+            'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=2670&auto=format&fit=crop'  // Laptop Tech
         ];
         const imageUrl = wallpapers[Math.floor(Math.random() * wallpapers.length)];
         const img = new Image();
