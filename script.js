@@ -41,11 +41,33 @@ function setRandomUnsplashBackground() {
 
 document.addEventListener('DOMContentLoaded', () => {
     setRandomUnsplashBackground();
+    // Inputs for various generators
     const ssidInput = document.getElementById('ssid');
     const passwordInput = document.getElementById('password');
     const encryptionSelect = document.getElementById('encryption');
-    const encryptionSelectComponent = document.getElementById('encryption-select');
     const hiddenCheckbox = document.getElementById('hidden');
+
+    const whatsappPhoneInput = document.getElementById('whatsapp-phone');
+    const whatsappMessageInput = document.getElementById('whatsapp-message');
+
+    const websiteUrlInput = document.getElementById('website-url');
+
+    const paymentTypeSelect = document.getElementById('payment-type'); // UPI, Link, etc. (future expansion), treating as URL for now or specific UPI
+    const paymentValueInput = document.getElementById('payment-value'); // UPI ID or Link
+
+    const phoneInput = document.getElementById('phone-number');
+
+    const mapsInput = document.getElementById('maps-link');
+
+    // vCard Inputs
+    const vcardFnInput = document.getElementById('vcard-fn'); // Full Name
+    const vcardOrgInput = document.getElementById('vcard-org');
+    const vcardTitleInput = document.getElementById('vcard-title');
+    const vcardTelInput = document.getElementById('vcard-tel');
+    const vcardEmailInput = document.getElementById('vcard-email');
+    const vcardUrlInput = document.getElementById('vcard-url');
+
+    const encryptionSelectComponent = document.getElementById('encryption-select');
     const helpLink = document.getElementById('help-link');
     const helpModal = document.getElementById('help-modal');
     const helpModalClose = document.getElementById('help-modal-close');
@@ -72,22 +94,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generateQRString() {
-        const ssid = ssidInput.value.trim();
-        if (!ssid) return null;
-        const password = passwordInput.value;
-        const type = encryptionSelect.value;
-        const hidden = hiddenCheckbox.checked;
-        let schema = `WIFI:T:${type};S:${escapeWiFiString(ssid)};`;
-        if (type !== 'nopass' && password) {
-            schema += `P:${escapeWiFiString(password)};`;
+        // Detect Page Type based on available inputs
+
+        // 1. WiFi
+        if (ssidInput) {
+            const ssid = ssidInput.value.trim();
+            if (!ssid) return null;
+            const password = passwordInput.value;
+            const type = encryptionSelect.value;
+            const hidden = hiddenCheckbox.checked;
+            let schema = `WIFI:T:${type};S:${escapeWiFiString(ssid)};`;
+            if (type !== 'nopass' && password) {
+                schema += `P:${escapeWiFiString(password)};`;
+            }
+            schema += `H:${hidden};;`;
+            return schema;
         }
-        schema += `H:${hidden};;`;
-        return schema;
+
+        // 2. WhatsApp
+        if (whatsappPhoneInput) {
+            const phone = whatsappPhoneInput.value.trim();
+            if (!phone) return null;
+            let message = whatsappMessageInput ? whatsappMessageInput.value.trim() : '';
+            // WhatsApp URL format: https://wa.me/NUMBER?text=URLENCODED
+            // Remove non-numeric from phone
+            const cleanPhone = phone.replace(/[^\d]/g, '');
+            let url = `https://wa.me/${cleanPhone}`;
+            if (message) {
+                url += `?text=${encodeURIComponent(message)}`;
+            }
+            return url;
+        }
+
+        // 3. Website
+        if (websiteUrlInput) {
+            let url = websiteUrlInput.value.trim();
+            if (!url) return null;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            return url;
+        }
+
+        // 4. Payment (Simple URL/UPI mode for now)
+        if (paymentValueInput) {
+            const val = paymentValueInput.value.trim();
+            if (!val) return null;
+            // Detect if it's UPI or Link
+            if (val.includes('@')) {
+                // Assume UPI: upi://pay?pa=ADDRESS&pn=NAME(Optional)
+                return `upi://pay?pa=${val}`;
+            } else {
+                if (!val.startsWith('http://') && !val.startsWith('https://')) {
+                    return 'https://' + val;
+                }
+                return val;
+            }
+        }
+
+        // 5. Phone Number
+        if (phoneInput) {
+            const val = phoneInput.value.trim();
+            if (!val) return null;
+            return `tel:${val}`;
+        }
+
+        // 6. Google Map
+        if (mapsInput) {
+            const val = mapsInput.value.trim();
+            if (!val) return null;
+            return val; // Use the exact link provided
+        }
+
+        // 7. Business Card (vCard)
+        if (vcardFnInput) {
+            const fn = vcardFnInput.value.trim();
+            if (!fn) return null; // Name is required
+            const org = vcardOrgInput.value.trim();
+            const title = vcardTitleInput.value.trim();
+            const tel = vcardTelInput.value.trim();
+            const email = vcardEmailInput.value.trim();
+            const url = vcardUrlInput.value.trim();
+
+            let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;${fn};;;\nFN:${fn}\n`;
+            if (org) vcard += `ORG:${org}\n`;
+            if (title) vcard += `TITLE:${title}\n`;
+            if (tel) vcard += `TEL;TYPE=WORK,VOICE:${tel}\n`;
+            if (email) vcard += `EMAIL:${email}\n`;
+            if (url) vcard += `URL:${url}\n`;
+            vcard += `END:VCARD`;
+            return vcard;
+        }
+
+        return null;
     }
 
     function updateQR(shouldSlide = false) {
-        if (!ssidInput) return;
+        // Validation check for empty basic requirement
+        // We use the same 'ssidInput' check etc inside generateQRString to determine validity
+        // But for UI feedback (slide vs no slide), we need to know if content exists.
+
         const qrContent = generateQRString();
+
         if (qrContent) {
             qrPlaceholder.classList.add('hidden');
             downloadPngBtn.disabled = false;
@@ -103,16 +211,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const generatedImg = qrContainer.querySelector('img');
             if (generatedImg) {
-                generatedImg.alt = "WiFi QR Code for " + ssidInput.value.trim();
+                // Generic alt update
+                generatedImg.alt = "Generated QR Code";
             }
             if (shouldSlide) slideToQR();
         } else {
-            if (!ssidInput.value.trim()) {
+            // Only clear if we explicitly tried to generate (clicked button) or inputs are empty
+            // For simplicity, if content is null, we clear.
+            if (true) { // Logic simplified: if generator returns null, input is invalid/empty
                 qrContainer.innerHTML = '';
                 qrPlaceholder.classList.remove('hidden');
                 downloadPngBtn.disabled = true;
                 downloadVectorBtn.disabled = true;
                 qrCodeObj = null;
+                // If we attempted to generate (clicked button) but failed validation, we might want to alert or stay on form
+                // But current behavior is just show placeholder.
                 slideToForm();
             }
         }
@@ -132,9 +245,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    [ssidInput, passwordInput, encryptionSelect, hiddenCheckbox].forEach(input => {
-        input?.addEventListener('input', () => updateQR(false));
-        input?.addEventListener('change', () => updateQR(false));
+    // Attach listeners to ALL potential inputs
+    const allInputs = [
+        ssidInput, passwordInput, encryptionSelect, hiddenCheckbox,
+        whatsappPhoneInput, whatsappMessageInput,
+        websiteUrlInput,
+        paymentValueInput, paymentTypeSelect,
+        phoneInput,
+        mapsInput,
+        vcardFnInput, vcardOrgInput, vcardTitleInput, vcardTelInput, vcardEmailInput, vcardUrlInput
+    ];
+
+    allInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => updateQR(false));
+            input.addEventListener('change', () => updateQR(false));
+        }
     });
 
     if (generateBtn) {

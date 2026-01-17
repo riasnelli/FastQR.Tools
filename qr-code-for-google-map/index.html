@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code for Google Maps - FastQR.Tools</title>
+    <meta name="description"
+        content="Turn a Google Maps location link into a QR code. Direct people to your business or event easily.">
+    <meta name="keywords"
+        content="google maps qr code generator, location qr code, map link to qr code, directions qr code, free google map qr generator">
+    <meta name="author" content="FastQR.Tools">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="google-adsense-account" content="ca-pub-7635271375039898">
+    <link rel="canonical" href="https://fastqr.tools/qr-code-for-google-map/">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0YY9N5NCB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0YY9N5NCB');
+    </script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7635271375039898"
+        crossorigin="anonymous"></script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FastQR.Tools - Google Maps QR Code Generator",
+        "url": "https://fastqr.tools/qr-code-for-google-map/",
+        "description": "Free Google Maps QR code generator.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Generate Google Map QR codes",
+            "Direct navigation links",
+            "No data storage",
+            "Download as PNG or SVG",
+            "Free to use"
+        ],
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "ratingCount": "44"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FastQR.Tools",
+        "url": "https://fastqr.tools",
+        "logo": "https://fastqr.tools/logo.svg",
+        "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "QR Code for Google Maps - FastQR.Tools",
+        "description": "Turn a Google Maps location link into a QR code.",
+        "url": "https://fastqr.tools/qr-code-for-google-map/",
+        "inLanguage": "en-US",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "FastQR.Tools",
+            "url": "https://fastqr.tools"
+        }
+    }
+    </script>
+</head>
+
+<body>
+    <div class="app-container">
+        <main class="generator-layout">
+            <section class="generator-form" id="main-section">
+                <div class="form-view" id="form-view">
+                    <div class="form-header">
+                        <a href="/" class="form-brand">
+                            <svg class="form-brand-logo" viewBox="0 0 317.8 369.6" xmlns="http://www.w3.org/2000/svg"
+                                aria-label="FastQR.Tools Logo" role="img">
+                                <title>FastQR.Tools Logo</title>
+                                <path fill="currentColor" d="M162.2,0H0v162.2h162.2V0ZM129.8,131H31.2V32.4h98.6v98.6Z"
+                                    aria-hidden="true" />
+                                <rect fill="currentColor" x="52.1" y="52.1" width="58.8" height="58.8"
+                                    aria-hidden="true" />
+                                <path fill="currentColor"
+                                    d="M279.1,0h-97.5v59.1h77.2v200.3h-51v59.1h110.1V38.8C317.8,17.4,300.5,0,279.1,0Z"
+                                    aria-hidden="true" />
+                                <path fill="currentColor"
+                                    d="M146.6,259.4h0s-87.5,0-87.5,0v-77.2H0v97.5C0,301.1,17.4,318.5,38.8,318.5h80.1l42.6,51.2h76.8c0,0-91.7-110.3-91.7-110.3h0Z"
+                                    aria-hidden="true" />
+                            </svg>
+                            FastQR.Tools
+                        </a>
+                        <h1 class="form-title">Make A Google Maps QR Code</h1>
+                        <p class="form-subtitle">Generate a QR code that opens a location in Google Maps.</p>
+                    </div>
+                    <div class="form-content">
+                        <div class="form-group form-group--material">
+                            <input type="url" id="maps-link" class="form-input form-input--material" placeholder=" ">
+                            <label for="maps-link" class="form-label form-label--material">Google Maps Link</label>
+                            <span class="form-underline"></span>
+                            <small
+                                style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; display: block;">Paste
+                                the full 'goo.gl' or 'google.com/maps' link</small>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn--primary btn--generate" id="generate-qr">Generate QR Code</button>
+                            <a href="#" class="help-link" id="help-link">How does it work?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="qr-view" id="qr-view">
+                    <div class="form-header">
+                        <a href="/" class="form-brand">
+                            <svg class="form-brand-logo" viewBox="0 0 317.8 369.6" xmlns="http://www.w3.org/2000/svg"
+                                aria-label="FastQR.Tools Logo" role="img">
+                                <title>FastQR.Tools Logo</title>
+                                <path fill="currentColor" d="M162.2,0H0v162.2h162.2V0ZM129.8,131H31.2V32.4h98.6v98.6Z"
+                                    aria-hidden="true" />
+                                <rect fill="currentColor" x="52.1" y="52.1" width="58.8" height="58.8"
+                                    aria-hidden="true" />
+                                <path fill="currentColor"
+                                    d="M279.1,0h-97.5v59.1h77.2v200.3h-51v59.1h110.1V38.8C317.8,17.4,300.5,0,279.1,0Z"
+                                    aria-hidden="true" />
+                                <path fill="currentColor"
+                                    d="M146.6,259.4h0s-87.5,0-87.5,0v-77.2H0v97.5C0,301.1,17.4,318.5,38.8,318.5h80.1l42.6,51.2h76.8c0,0-91.7-110.3-91.7-110.3h0Z"
+                                    aria-hidden="true" />
+                            </svg>
+                            FastQR.Tools
+                        </a>
+                        <h1 class="form-title">Your Google Maps QR Code</h1>
+                        <p class="form-subtitle">Scan this QR code to open the location.</p>
+                    </div>
+                    <div class="qr-content">
+                        <div class="qr-box">
+                            <div id="qrcode" class="qr-code-display" role="img" aria-label="Generated WiFi QR Code">
+                            </div>
+                            <div class="qr-placeholder" id="qr-placeholder">
+                                <span>Enter details to generate QR</span>
+                            </div>
+                            <div class="ad-container" id="ad-container" style="display: none;">
+                                <div class="ad-placeholder">
+                                    <p>Advertisement</p>
+                                    <div class="ad-content" id="ad-content"></div>
+                                    <div class="ad-countdown" id="ad-countdown">10</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="qr-actions">
+                            <button class="btn btn--secondary" id="download-png" disabled>Download <span
+                                    class="btn-text-light">PNG</span></button>
+                            <button class="btn btn--primary" id="download-vector" disabled>Download <span
+                                    class="btn-text-bold">Vector</span></button>
+                        </div>
+                        <div class="qr-close-container">
+                            <button class="btn-close" id="close-qr" aria-label="Close">×</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="help-modal" id="help-modal">
+                    <div class="help-modal-overlay" id="help-modal-overlay"></div>
+                    <div class="help-modal-content">
+                        <button class="help-modal-close" id="help-modal-close" aria-label="Close">×</button>
+                        <div class="help-modal-body">
+                            <h2>How does it work?</h2>
+                            <p>Encodes a Google Maps location link.</p>
+                            <h3>1) Get Link</h3>
+                            <p>Go to Google Maps, find your location, click Share -> Copy Link.</p>
+                            <h3>2) Paste & Generate</h3>
+                            <p>Paste the link above. Scanning the QR code will open the Maps app directly to that
+                                location.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../vendor/qrcode.min.js"></script>
+    <script src="../script.js?v=2"></script>
+</body>
+
+</html>
