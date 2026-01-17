@@ -231,11 +231,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const ins = document.createElement('ins');
             ins.className = 'adsbygoogle';
-            ins.style.display = 'block';
+            ins.style.display = 'inline-block';
+            ins.style.width = '300px';
+            ins.style.height = '250px';
             ins.setAttribute('data-ad-client', 'ca-pub-7635271375039898');
             ins.setAttribute('data-ad-slot', '4136885580');
-            ins.setAttribute('data-ad-format', 'auto');
-            ins.setAttribute('data-full-width-responsive', 'true');
             adContent.appendChild(ins);
 
             // Queue/render the ad (may no-op if AdSense not approved, adblocked, etc.)
